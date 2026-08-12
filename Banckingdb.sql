@@ -64,13 +64,14 @@ End_date Date
 
 alter table customers add  Date_of_birth date;
 
-#2nd task 
+#2nd task change the phone number datatype
+alter table customers modify Phone bigint;
 
 
-#3rd task Delete the table alter Account Brancges
+#3rd task Delete the table alter Account Branchges
 drop table Account_branches;
 
-
+select * from Customers;
 
 #add on ID  Primary key
 use banckingd;
@@ -90,11 +91,31 @@ select * FROM Customers;
 
 
 #UPDATE
-set sql_safe_updates=0
-Update customers set FirstName= "Shruti" Where CustomerID (102);
+set sql_safe_updates=0;
+update Customers set FirstName ="Shruti"
+where CustomerID = 102;
+
+set sql_safe_updates=0;
+update Customers set LastName = "Atagre", email="shruti@gmail", Phone=3950738290, AccountCreationDate="2026-09-23", Date_of_birth="2004-05-24"where CustomerID = 102;
+
+Update Customers set FirstName="Pranali", LastName="Wagh", email="pranali@gmail", Phone=8302782559,AccountCreationDate="2026-04-01", Date_of_birth="2005-02-04" where CustomerID = 103;
 
 
+use banckingDb;
 
+# multipal update and with the help of case
+ 
+ #update customers set phone =case
+ 
+select *  from account ;
+# insert into function 
+insert into account values
+(201,"saving", 26000, 101);
+Alter table Account add CustomerID int unique not null;
 
+select * from Customers;
 
+update customers set email ="hima@gmail" where customerID = (101);
+
+delete from customers where customerid = 101;
 
