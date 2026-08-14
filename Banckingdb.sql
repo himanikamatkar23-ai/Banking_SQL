@@ -89,7 +89,6 @@ insert into customers (CustomerID, FirstName, LastName, Email, Phone, AccountCre
 (103,"Himani", "Kamatkar","himani@gmail", 4472849261, "2026-4-9", "2000-9-19");
 select * FROM Customers;
 
-
 #UPDATE
 set sql_safe_updates=0;
 update Customers set FirstName ="Shruti"
@@ -118,4 +117,80 @@ select * from Customers;
 update customers set email ="hima@gmail" where customerID = (101);
 
 delete from customers where customerid = 101;
+
+
+
+
+select * from customers;
+
+
+select FirstName, LastName , Email,Phone from Customers;
+
+Select * from account;
+
+insert into account values
+(202,"saving", 49000,102),
+(203,"Current", 347389,103),
+(204, "saving", 745683,104);
+
+select * from account
+where Account_type in ("saving");
+
+
+select *from account
+where Balance >=27000;
+
+select * from Account
+where balance between 27000 and 700000;
+
+
+Select * from account
+where customerid in (102,103);
+
+
+
+select * from Customers;
+Select * from Customers
+where firstName like 'p%';
+
+select * from customers 
+order by Firstname;
+
+select * from account;
+
+select * from account 
+order by balance desc;
+
+
+
+
+
+
+
+
+
+#Disting ----> ha repeate 
+
+use banckingdb;
+select * from account;
+select distinct account_type from account;
+
+select * from account 
+order by balance desc limit 3;
+
+
+select * from account 
+order by balance desc limit 3 offset 2;
+
+
+
+
+
+
+
+
+
+
+
+
 
