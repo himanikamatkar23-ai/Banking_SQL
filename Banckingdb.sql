@@ -113,7 +113,7 @@ use banckingdb;
 select * from customers;
 
 
-# 1 INNER JOIN
+# 1 INNER JOIN---> join a two or more table with the help of comman column
 select * from customers c
 inner join account a 
 on c.customerid = a.customerid;
@@ -208,4 +208,67 @@ select * from account as a
 inner join transactions as t
 on a.accountid=t.accountid
 where  transaction_type ="deposit";
+
+
+
+# subquery---> is a  query which are placed in another query
+#outer query(main query) --->
+#inner query  (sub-query)---->
+##########  in term of exicution ---> sub-query run first
+## correlated
+# neastedif both of type
+
+
+#types
+# 1 . single row query
+
+select * from account;
+select *,(select avg(balance) as avg_bal from account) from account; 
+
+
+# mmultiple row  query
+select *,(select avg(balance) as avg_bal from account),
+(select max(balance) as avg_bal from account),
+(select min(balance) as avg_bal from account) from account;
+
+
+#sub query with where
+select * from account 
+where balance > (select avg(balance) from account);
+
+
+use hollywood;
+select * from movies;
+select * from movies
+where audiencescore>80 or
+genre in (select avg(profitability) from movies where genre in("action","comedy"));
+
+# task 1
+use banckingdb;
+select * from transactions;
+select avg(amount) from transactions;
+Select * from transactions
+where amount>(select avg(amount) from transactions);
+
+#task 2
+Select * from account;
+select avg(balance) from account ;
+Select * from account
+where Balance>(select avg(balance) from account);
+
+# task 3
+select * from transactions
+where transaction_type in
+(select transaction_type from transactions where transaction_type in ("deposit"));
+
+#task 4 
+select * from account;
+select * from account
+where balance in (select max(balance) from account );
+
+
+
+
+
+
 
