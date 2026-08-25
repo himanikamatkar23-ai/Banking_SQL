@@ -268,6 +268,87 @@ where balance in (select max(balance) from account );
 
 
 
+#@# windosws function type ---> performimg a calculation(is a calculation performed across a set of table rows related to the current row, returning a value for each row without collapsing them into a single summary result like standard aggregate functions.)
+# 1 . aggregation wf
+# 2 . ranking wf----> 3 types                                                               ex->   %    rank    Dence_rank   Rows_number
+				      #1 rank(assing a rank, with a gap of equal values),                         100    1        1              1
+                      #2 dense_rank (assing a rank, without a gap of equal value),                90     2        2              2
+                      #3 row_number (assing a unique rank of all values)                          80     3        3              3
+                      #                                                                           80     3        3              4
+                      #                                                                           80     5        3              5
+                      #                                                                           70     6        4              6
+                      #                                                                           70     6        4              7
+                      
+			
+# 3 . values wf---> lag (preivious one), lead(next one), first (fist and (desc last income shows)  (first---> first salary ) ) ,  last (current valeu), nth_value
+
+select * from account;
+select *,
+sum(balance) over (partition by account_type) from account;
+
+update account set balance =26000 where accountid =202;
+Select * from account;
+
+# Ranking WF
+# 1.Rank
+select *,
+rank() over(order by balance desc)  from account;
+
+#dence_rank
+select *,
+dense_rank() over(order by balance desc)  from account;
+
+# row_number
+select *,
+row_number() over(partition by Account_type order by balance desc)  from account;
+
+# values WF
+#lag
+select *,
+lag(balance) over(partition by account_type order by balance desc)  from account ;
+
+use banckingdb;
+select * from loans;
+alter table loans add customerid int;
+insert into loans (loan_id,loan_amount,interest_rate,customerid) values
+(301,100000,9.5,101),
+(302,50000,8.00,102),
+(303,150000,10,103),
+(304,87000,7,104),
+(305,30000,5,105);
+insert into loans (loan_id,loan_amount,interest_rate,customerid) values
+(306,100000,9.5,106);
+
+
+
+#task 1
+ select *,
+ rank() over(order by loan_amount desc) as loan_amount from loans;
+
+
+# task 2
+select *,
+ dense_rank() over (order by loan_amount desc)  from loans;
+
+# task 3
+select *,
+ row_number() over (order by loan_amount desc)  from loans;
+ 
+#task 4
+select *,
+ dense_rank() over (partition by customerid order by loan_amount desc)  from loans;
+ 
+ 
+# task 5
+select *,
+sum(loan_amount) over (order by loan_amount) from loans;
+
+#task 6
+select Loan_id, loan_amount,customerid ,
+lag(loan_amount) over(order by loan_amount) from loans;
+
+select Loan_id, loan_amount,customerid ,
+lead(loan_amount) over(order by loan_amount) from loans;
 
 
 
