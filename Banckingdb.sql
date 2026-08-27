@@ -352,4 +352,87 @@ lead(loan_amount) over(order by loan_amount) from loans;
 
 
 
+# if 
+Select * from loans;
+Select * from account;
+select * , if(balance>=30000,"High_balance", "Low_balance") as balance_comp from account;
 
+#case
+select *,
+ case
+when balance>=700000 then " high bal"
+when balance>=300000 then "midium bal"
+else "low bal"
+end as balance_rang
+from account;
+
+
+select *,
+if(balance>=25000 and account_type="saving","Accepted", "rejected") as loan from account;
+
+
+Select * from account;
+
+
+select * from customers;
+insert into customers values
+(104,"pallavi", "Mehta", "pallavi@gmail.com",7452926481,"2026-08-08","2000-09-12");
+
+#Foreign key
+select * from loans;
+select * from customers;
+alter table account add constraint foreign key(customerid) references customers(customerid);
+
+delete from loans where loan_id in (305,306);
+ select * from transactions;
+alter table loans add constraint foreign key (customerid) references customers(customerid);
+
+alter table transactions add constraint foreign key (accountid) references account(accountid);
+
+
+
+Use banckingdb;
+# creating a virtual table with the help of view
+#virtual table ----> we can 
+create view loan_intern as
+select loan_id, loan_amount,end_date, customerid from loans
+where loan_amount>= 60000;
+
+select * from loan_intern;
+
+use hollywood;
+select * from movies;
+# Index 
+create index index_grnre on movies (genre (200));
+
+# show index
+#show indexes from index_grnre;
+
+#task 1
+use banckingdb;
+select* from account;
+create view high_balance_account as select accountid,account_type, balance,customerid from account
+where balance>30000;
+select * from high_balance_account;
+
+
+# task 2
+select * from account;
+select * from transactions;
+ create or replace view high_balance_acc as
+ select a.accountid, a.account_type, a.balance, t.transactionid, t.transaction_date, t.transaction_type,t.amount
+ from account  a
+ inner join transactions  t
+ on a.accountid = t.accountid
+ where a.balance>30000;
+ 
+ 
+ # task 3
+ 
+ select accountid, account_type,balance,transactionid,transaction_date,transaction_type,amount
+ from high_balance_acc 
+ order by Balance desc;
+ select * from high_balance_account;
+ 
+ 
+ select * from high_balance_acc;
